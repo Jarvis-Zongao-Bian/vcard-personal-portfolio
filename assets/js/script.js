@@ -16,7 +16,8 @@ sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); }
 
 
 
-// testimonials variables
+// testimonials/news variables
+const newsItem = document.querySelectorAll("[data-news-item]");
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
 const modalContainer = document.querySelector("[data-modal-container]");
 const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
@@ -29,6 +30,10 @@ const modalText = document.querySelector("[data-modal-text]");
 
 // modal toggle function
 const testimonialsModalFunc = function () {
+  modalContainer.classList.toggle("active");
+  overlay.classList.toggle("active");
+}
+const newsModalFunc = function () {
   modalContainer.classList.toggle("active");
   overlay.classList.toggle("active");
 }
@@ -49,9 +54,26 @@ for (let i = 0; i < testimonialsItem.length; i++) {
 
 }
 
+for (let i = 0; i < newsItem.length; i++) {
+
+  newsItem[i].addEventListener("click", function () {
+
+    modalImg.src = this.querySelector("[data-news-avatar]").src;
+    modalImg.alt = this.querySelector("[data-news-avatar]").alt;
+    modalTitle.innerHTML = this.querySelector("[data-news-title]").innerHTML;
+    modalText.innerHTML = this.querySelector("[data-news-text]").innerHTML;
+
+    newsModalFunc();
+
+  });
+
+}
+
 // add click event to modal close button
 modalCloseBtn.addEventListener("click", testimonialsModalFunc);
 overlay.addEventListener("click", testimonialsModalFunc);
+modalCloseBtn.addEventListener("click", newsModalFunc);
+overlay.addEventListener("click", newsModalFunc);
 
 
 
